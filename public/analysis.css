@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/*---------------top-------------------*/
+.top{
+    height: 210px;
+    padding: 20px;
+    background-color: #8dbfd8;
+    overflow: hidden;
+}
+.title{
+    color: white;
+    font-size: 20px;
+}
+.box{
+    display: inline-block;
+    position: relative;
+}
+.crown{
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    width: 40px;
+
+}
+.image{
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    display: block;
+}
+.box p{
+    color: white;
+    margin: 5px 0;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.active{
+    font-size: 21px;
+}
+#two{
+    margin-top: 30px;
+}
+#one{
+    margin-top: 10px;
+}
+#oneImg{
+    width: 80px;
+    height: 80px;
+}
+/*#oneCrown{*/
+    /*width: 40px;*/
+/*}*/
+#three{
+    margin-top: 40px;
+}
+#image::before{
+    content: 'hahaha';
+    position: absolute;
+    top:0;
+}
+/*---------------middle-------------------*/
+.middle{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.item{
+    height: 75px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dcd4d4;
+}
+.number,.memberName,.text,.img{
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.item img{
+    display: inline-block;
+    width: 40px;
+    margin-right: 5px;
+}
+.number{
+    margin-right: 5px;
+    width: 3%;
+}
+.img{
+    width: 15%;
+}
+.memberName{
+    width: 25%;
+    padding-right: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: inherit;
+}
+.text{
+    width: 16%;
+    float: right;
+    text-align: end;
+}
+.text p{
+    margin: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+.progressbar{
+display: inline-block;
+    width: 35%;
+    height: 10px;
+}
+.ui-widget-header {
+    border: 1px solid rgb(249, 232, 9);
+    background: rgb(249, 232, 9);
+    color: #222222;
+    font-weight: bold;
+}
