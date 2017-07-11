@@ -11,116 +11,130 @@
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<script>
-    /**
-     * Created by wangqi on 2017/7/6.
-     */
-
-</script>
 
 <div class="container">
     <div class="top row">
         <div class="title">超级活跃用户</div>
-        <div class="box col-sm-4 col-xs-4" id="two">
-            <img src="/dist/two.png" class="crown" alt="">
-            <img src="/dist/1.jpg" class="image img-circle" >
-            <p class="name"></p>
-            <p class="reply"></p>
+        <div class="user">
+            <div class="box col-sm-4 col-xs-4" id="two">
+                <img src="/dist/two.png" class="crown" alt="">
+                <img src="/dist/1.jpg" class="image img-circle" >
+                <p class="name"></p>
+                <p class="reply"></p>
+            </div>
+            <div class="box col-sm-4 col-xs-4" id="one">
+                <img src="/dist/one.png" class="crown" id="oneCrown">
+                <img src="/dist/1.jpg" class="image img-circle" id="oneImg" >
+                <p class="name"></p>
+                <p class="reply"></p>
+            </div>
+            <div class="box col-sm-4 col-xs-4" id="three">
+                <img src="/dist/three.png" class="crown" alt="">
+                <img src="/dist/1.jpg" class="image img-circle">
+                <p class="name"></p>
+                <p class="reply"></p>
+            </div>
         </div>
-        <div class="box col-sm-4 col-xs-4" id="one">
-            <img src="/dist/one.png" class="crown" id="oneCrown">
-            <img src="/dist/1.jpg" class="image img-circle" id="oneImg" >
-            <p class="name"></p>
-            <p class="reply"></p>
-        </div>
-        <div class="box col-sm-4 col-xs-4" id="three">
-            <img src="/dist/three.png" class="crown" alt="">
-            <img src="/dist/1.jpg" class="image img-circle">
-            <p class="name"></p>
-            <p class="reply"></p>
-        </div>
+
     </div>
     <div class="middle">
         <!--<div class="item">-->
-            <!--<span class="number">1</span>-->
-            <!--<div class="public"><public src="1.jpg" class="public-circle" alt=""></div>-->
-            <!--<span class="memberName">粽子烧肉烧肉哈</span>-->
-            <!--<div class="progressbar"></div>-->
-            <!--<div class="text">-->
-                <!--<p>回复数</p>-->
-                <!--<p>49</p>-->
-            <!--</div>-->
+        <!--<span class="number">1</span>-->
+        <!--<div class="public"><public src="1.jpg" class="public-circle" alt=""></div>-->
+        <!--<span class="memberName">粽子烧肉烧肉哈</span>-->
+        <!--<div class="progressbar"></div>-->
+        <!--<div class="text">-->
+        <!--<p>回复数</p>-->
+        <!--<p>49</p>-->
+        <!--</div>-->
         <!--</div>-->
     </div>
     <div class="bottom"></div>
 </div>
 <script>
-    var left=$('.image').css('margin-left');
-    $('.crown').css('left',left)
+
+    var left=parseInt($('.image').css('margin-left'));
+    $('.crown').css('left',left);
+    $('#oneCrown').css('left',(left-10)+'px');
+
     $(window).resize(function () {
-        var left=$('.image').css('margin-left');
+        var left=parseInt($('.image').css('margin-left'));
         $('.crown').css('left',left);
+        $('#oneCrown').css('left',(left-10)+'px');
     })
-    $(document).ready(function(){
 
-        $.ajax({
-            type: "get",
-            url: '/pic',
-            data:'',
-            crossDomain:true,
-            dateType: "json",
-            async:false,
-            success:function(data){
-                var a=JSON.stringify(data);
-                if(data.result==true){
-                    var datum = data.datum;
-                    var txt='';
-                     console.log(datum);
+    $.ajax({
+        type: "get",
+        url: 'pic',
+        data:'',
+        crossDomain:true,
+        dateType: "json",
+        async:false,
+        success:function(data){
+            var a=JSON.stringify(data);
+            console.log(data);
+            var txt='';
+            // success(data);
+            if(data.result==true){
 
-                    /*------最活跃前三名---------*/
+                var datum=data.datum;
+                if(datum[0]){
+                    var imgurl=datum[0].img||'1.jpg';    //如果服务器上没有这张图,怎么判断?
+                    imgurl='./dist/'+imgurl;
                     $('#one .name').html(datum[0].name);
                     $('#one .reply').html(datum[0].counts);
+                    $('#one .image').attr('src',imgurl)
+                }else return;
+
+                if(datum[1]){
+                    var imgurl=datum[1].img||'1.jpg';
+                    imgurl='./dist/'+imgurl;
                     $('#two .name').html(datum[1].name);
                     $('#two .reply').html(datum[1].counts);
+                    $('#two .image').attr('src',imgurl)
+                }
+
+                if(datum[2]){
+                    var imgurl=datum[2].img||'1.jpg';
+                    imgurl='./dist/'+imgurl;
                     $('#three .name').html(datum[2].name);
                     $('#three .reply').html(datum[2].counts);
-
-                    /*------成员列表---------*/
-                    for(var i=0;i<datum.length;i++){
-                        let img=datum[i].img||'/dist/1.jpg';
-                        txt+='<div class="item"> <span class="number">'+eval(i+1)
-                                + '</span> <div class="img"><img src="'+img
-                                +'"class="img-circle" alt=""></div><span class="memberName">'+datum[i].name
-                                +'</span><div class="progressbar"></div><div class="text"><p>发言数</p><p>'+datum[i].counts
-                                +'</p></div></div>';
-                    }
-                    $('.middle').html(txt);
-
-                    /*----progressbar---*/
-                    for(var i=0;i<datum.length;i++){
-                        let el=$('.progressbar')[i];
-                        // console.log(el);
-                        $(el).progressbar({
-                            value:eval(datum[i].counts),   //每个成员的回复数
-                            max:datum[0].counts            //回复量最高的成员的回复数
-                        });
-                    }
-
+                    $('#three .image').attr('src',imgurl)
                 }
-                else{
-                    //alert(data.MSG);
+
+                /*------成员列表---------*/
+                for(var i=0;i<datum.length;i++){
+                    var img=datum[i].img||'1.jpg';
+                    img='./dist/'+img;
+                    txt+='<div class="item"> <span class="number">'+eval(i+1)
+                            + '</span> <div class="img"><img src="'+img
+                            +'"class="img-circle" alt=""></div><span class="memberName">'+datum[i].name
+                            +'</span><div class="progressbar"></div><div class="text"><p>发言数</p><p>'+datum[i].counts
+                            +'</p></div></div>';
                 }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                //console.log("+++++");
-                //console.log(XMLHttpRequest.status);
-                //console.log(XMLHttpRequest.readyState);
-                //console.log(textStatus);
+                $('.middle').html(txt);
+
+                /*----progressbar---*/
+                for(var i=0;i<datum.length;i++){
+                    var el=$('.progressbar')[i];
+                    // console.log(el);
+                    $(el).progressbar({
+                        value:eval(datum[i].counts),   //每个成员的回复数
+                        max:datum[0].counts            //回复量最高的成员的回复数
+                    });
+                }
+
             }
-        })
 
-
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            //console.log("+++++");
+            console.log(XMLHttpRequest.status);
+            //console.log(XMLHttpRequest.readyState);
+            //console.log(textStatus);
+        }
     })
+
 </script>
 
 

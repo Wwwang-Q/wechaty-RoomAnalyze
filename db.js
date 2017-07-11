@@ -7,10 +7,10 @@ mongoose.Promise = require('bluebird')
 
 const MsgSchema = new Schema({
     name: {type: String},
-    room: {type: String},
     topic:{type:String},
     img:{type:String},
-    msg: {type: String}
+    msg: {type: String},
+    created: {type: Date}
 });
 
 const Model = {

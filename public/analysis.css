@@ -4,8 +4,9 @@
 }
 /*---------------top-------------------*/
 .top{
-    height: 210px;
+    height: 250px;
     padding: 20px;
+    padding-top: 30px;
     background-color: #8dbfd8;
     overflow: hidden;
 }
@@ -13,13 +14,16 @@
     color: white;
     font-size: 20px;
 }
+.user{
+    margin-top: 20px;
+}
 .box{
     display: inline-block;
     position: relative;
 }
 .crown{
     position: absolute;
-    top: -5px;
+    top: -10px;
     left: 10px;
     width: 40px;
 
@@ -52,9 +56,11 @@
     width: 80px;
     height: 80px;
 }
-/*#oneCrown{*/
-    /*width: 40px;*/
-/*}*/
+#oneCrown {
+    width: 60px;
+    top: -20px;
+}
+
 #three{
     margin-top: 40px;
 }
@@ -110,7 +116,7 @@
     font-size: 12px;
 }
 .progressbar{
-display: inline-block;
+    display: inline-block;
     width: 35%;
     height: 10px;
 }
